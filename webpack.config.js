@@ -13,7 +13,7 @@ module.exports = {
   ],
   output: {
     // __dirname refs to current dir
-    path: __dirname + "/dist",
+    path: __dirname + '/dist',
     filename: "index_buundle.js"
   },
   module: {
