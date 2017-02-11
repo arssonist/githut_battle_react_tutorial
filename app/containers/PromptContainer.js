@@ -1,9 +1,13 @@
 // onchange() - attaches to input to change state of input when typed
 // onSubmit()- attached to form to fire on submit of button Submit
 
+
+/////////BUSINESS LOGIC///////////////////////
 var React = require('react');
 // sets the transparentBg, within the styles object, as a method on the page route
 var transparentBg = require('../styles').transparentBg;
+var Prompt = require('../components/Prompt');
+
 
 var PromptContainer = React.createClass({
   contextTypes: {
@@ -17,14 +21,15 @@ var PromptContainer = React.createClass({
   },
 
 // CHANGE STATE FUNCTION/// this.setState is how to update state
-  onUpdateUser: function (e){
+  handleUpdateUser: function (e){
     this.setState({
       username:e.target.value
     })
   },
 // e is event; target is place on page;value is tha actual thing tyed(magic!)
 
-  onSubmitUser: function(e){
+// was onSubmit, changed to handleSubmit when passed down to Propmt, which takes the On-prefix
+  handleSubmitUser: function(e){
     e.preventDefault()
     var username = this.state.username;
     this.setState({
@@ -47,38 +52,18 @@ var PromptContainer = React.createClass({
       //player 2
     }
   },
+  /////////PRESENTATIONAL LOGIC///////////////////////
 
   render: function (){
     // console.log(this)
     // Bootstrap styling
       return (
-        <div className="jumbotron col-sm-6 col-sm-offset-3 text-center" style={transparentBg}>
-    {/* add style from obje ct on style page */}
-          {/* takes the header from the route object */}
-          <h1>{this.props.route.header}</h1>
-          <div className="col-sm-12">
-
-{/* onSubmitUser is a custom function */}
-            <form onSubmit={this.onSubmitUser}>
-              <div className="form-group">
-{/* input takes the state change from getInitialState and changes onChange*/}
-                <input className="form-control" placeholder="Github Username"
-    // onUpdateUser is a custom function
-                  onChange={this.onUpdateUser}
-                  value={this.state.username}
-                  type="text" />
-              </div>
-              <div className="form-group col-sm-4 col-sm-offset-4">
-
-                <button className="btn btn-block btn-success"
-                  type="submit">
-                    Continue
-                  </button>
-              </div>
-            </form>
-          </div>
-        </div>
-
+        <Prompt
+            onSubmitUser={this.handleSubmitUser}
+            onUpdateUser= {this.handleUpdateUser}
+            header={this.props.route.header}
+            username={this.state.user}
+          />
     )
   }
 });
