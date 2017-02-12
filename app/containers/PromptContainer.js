@@ -5,7 +5,6 @@
 /////////BUSINESS LOGIC///////////////////////
 var React = require('react');
 // sets the transparentBg, within the styles object, as a method on the page route
-var transparentBg = require('../styles').transparentBg;
 var Prompt = require('../components/Prompt');
 
 
