@@ -1,38 +1,37 @@
 var React = require('react');
-var ConfirmBattle = require("../components/ConfirmBattle");
+var ConfirmBattle = require('../components/ConfirmBattle');
+var githubHelpers = require('../utils/githubHelpers')
 
 var ConfirmBattleContainer = React.createClass({
-// routing is needed for buttons; imported with=
   contextTypes: {
     router: React.PropTypes.object.isRequired
   },
-  getInitialState: function() {
-    console.log('getInitialState')
+  getInitialState: function () {
     return {
-      isloading: false,
-    players: []
-  }
+      isLoading: true,
+      playersInfo: [],
+    }
+  },
+  componentDidMount: function () {
+    var query = this.props.location.query;
+    // Fetch info from github then update state
+  githubHelpers.getPlayersInfo([query.playerOne, query.playerTwo]).then(function(players){
+    console.log('Players', players)
+  })
 },
-componentWillMount: function(){
-  console.log('componentWillMount')
-},
-componentDidMount: function() {
-  var query = this.props.location.query;
-  console.log(query)
-  console.log('componentDidMount')
-},
-componentWillReceiveProps:function(){
-  console.log('componentWillReceiveProps')
-},
-componentWillUnMount: function(){
-  console.log('componentWillUnMount')
-},
+  componentWillReceiveProps: function(){
+    console.log('componentWillReceiveProps')
+  },
+  componentWillUnMount: function(){
+    console.log('componentWillUnMount')
+  },
   render: function () {
-      return(
-          <ConfirmBattle isLoading={this.state.isLoading}
-          playersInfo={this.state.playersInfo}/>
-      );
+    return (
+      <ConfirmBattle
+        isLoading={this.state.isLoading}
+        playersInfo={this.state.playersInfo} />
+    )
   }
-})
+});
 
 module.exports = ConfirmBattleContainer;
