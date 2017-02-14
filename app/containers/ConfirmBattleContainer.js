@@ -16,8 +16,12 @@ var ConfirmBattleContainer = React.createClass({
     var query = this.props.location.query;
     // Fetch info from github then update state
   githubHelpers.getPlayersInfo([query.playerOne, query.playerTwo]).then(function(players){
-    console.log('Players', players)
-  })
+    this.setState({
+      isLoading:false,
+      playersInfo:[players[0],players[1]]
+    })
+    //bind makes the $this be equal inside the promise, for .setState, as it is at the top. It changes values by defualt. 
+  }.bind(this))
 },
   componentWillReceiveProps: function(){
     console.log('componentWillReceiveProps')
