@@ -1,15 +1,11 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
 var styles = require('../styles');
-var Link = require('react-router').Link;
-var UserDetails = require('./UserDetails')
-var UserDetailsWrapper = require('./UserDetailsWrapper')
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
+var UserDetailsWrapper = require('./UserDetailsWrapper');
+var UserDetails = require('./UserDetails');
 
-function puke(object){
-  return <text>{JSON.stringify(object, null, '')}</text>
-}
-
-//stateles functioal component
 function ConfirmBattle (props) {
   return props.isLoading === true
     ? <p>LOADING</p>
@@ -38,9 +34,8 @@ function ConfirmBattle (props) {
 
 ConfirmBattle.propTypes = {
   isLoading: PropTypes.bool.isRequired,
+  onInitiateBattle: PropTypes.func.isRequired,
   playersInfo: PropTypes.array.isRequired,
-  onInitateBattle: PropTypes.func.isRequired
 }
-
 
 module.exports = ConfirmBattle;
